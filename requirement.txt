@@ -1,0 +1,8 @@
+pandas
+numpy
+scanpy
+seaborn
+matplotlib
+anndata
+typing-extensions
+logging
