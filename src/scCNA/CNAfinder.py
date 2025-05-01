@@ -52,6 +52,7 @@ def find_cnas(adata, min_cells=25, threshold=10, window_size=250,exclude_chromos
 
     tmp_adata = adata[:, ~var_mask]
     reference = _get_reference(adata, reference_key, reference_cat, reference)[:, ~var_mask]
+    # print(reference.shape)
     adata = tmp_adata.copy()
     adata = sort_genes_by_location(adata)
     genes = adata.var
@@ -112,6 +113,7 @@ def find_cnas(adata, min_cells=25, threshold=10, window_size=250,exclude_chromos
                     for cell in loss_cells:
                         cell_cna_dict[cell].append(window_label_loss)
     # 写入 adata.obs['detect_CNA']
+    # print(cell_cna_dict)
     adata.obs['detect_CNA'] = adata.obs_names.map(lambda x: ';'.join(cell_cna_dict[x]) if cell_cna_dict[x] else 'none')
     return adata
 
@@ -158,18 +160,20 @@ def _get_reference(
         raise ValueError("Reference must match the number of genes in AnnData. ")
 
     return reference
-adata=sc.read_h5ad("../../PBMC_simulated_cnas_041025.h5ad")
-adata=find_cnas(adata,reference_key="cell_type",
-                reference_cat=[
-                'CD4 T cell',
-                'CD14 monocyte',
-                'B cell',          
-                'CD8 T cell',
-                'NK cell', 
-                'FCGR3A monocyte',   
-                'Dendritic',
-                'Megakaryocyte'])
-# adata = cnv.datasets.maynard2020_3k()
+
+
+# adata=sc.read_h5ad("../../PBMC_simulated_cnas_041025.h5ad")
+# adata=find_cnas(adata,reference_key="cell_type",
+#                 reference_cat=[
+#                 'CD4 T cell',
+#                 'CD14 monocyte',
+#                 'B cell',          
+#                 'CD8 T cell',
+#                 'NK cell', 
+#                 'FCGR3A monocyte',   
+#                 'Dendritic',
+#                 'Megakaryocyte'])
+
 # print(adata.obs.columns)
 # print(adata.obs['cell_type'].value_counts())
 # adata.var.loc[:, ["ensg", "chromosome", "start", "end"]].head()
