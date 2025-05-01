@@ -170,7 +170,7 @@ adata=find_cnas(adata,reference_key="cell_type",
                 'Dendritic',
                 'Megakaryocyte'])
 # adata = cnv.datasets.maynard2020_3k()
-print(adata.obs.columns)
+# print(adata.obs.columns)
 # print(adata.obs['cell_type'].value_counts())
 # adata.var.loc[:, ["ensg", "chromosome", "start", "end"]].head()
-print(adata.obs['detect_CNA'].value_counts())
+# print(adata.obs['detect_CNA'].value_counts())
