@@ -11,11 +11,7 @@ def extract_gene_position(gtf_file):
     return gene_position
 
 
-def annotate_gene_position(adata,species='human',gtf_filepath='../../gtf_annotation/gencode.v47.annotation.gtf'):
-    if species not in ['human', 'mouse']:
-        raise ValueError("species must be either 'human' or 'mouse'")
-    if species=='mouse':
-        gtf_filepath='../../gtf_annotation/gencode.vM36.annotation.gtf'
+def annotate_gene_position(adata,gtf_filepath):
     gene_position = extract_gene_position(gtf_filepath)
     gene_position_filtered = gene_position.set_index('gene_name')
     gene_position_filtered = gene_position_filtered[~gene_position_filtered.index.duplicated(keep='first')]
