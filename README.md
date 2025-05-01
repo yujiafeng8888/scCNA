@@ -12,12 +12,13 @@ Clone the repository:
 ```bash
 git clone https://github.com/yujiafeng8888/scCNA
 cd scCNA
-pip install .
+pip install.
 ```
 ## usage
 
 The input data of scCNA can be raw count, scCNA will normalize the count
 ### annotate_gene_position
+Please download a GTF annotation file. Make sure the file includes gene-level entries in the feature column. We recommend using the GENCODE annotation. 
 ### find_cnas
 
 
