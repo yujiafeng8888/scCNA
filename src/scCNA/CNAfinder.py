@@ -1,5 +1,5 @@
 import numpy as np
-from utils import sort_genes_by_location
+from .utils import sort_genes_by_location
 import scanpy as sc
 from typing import Sequence
 import logging
