@@ -8,7 +8,7 @@ setup(
     author_email="your.email@example.com",
     url="https://github.com/yujiafeng8888/scCNA",
     packages=find_packages(where="src"),
-    package_dir={"": "src"},  
+    package_dir={"": "src"}, 
     install_requires=[
         "pandas",
         "numpy",

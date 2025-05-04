@@ -16,9 +16,7 @@ def annotate_gene_position(adata,gtf_filepath):
     gene_position_filtered = gene_position.set_index('gene_name')
     gene_position_filtered = gene_position_filtered[~gene_position_filtered.index.duplicated(keep='first')]
     gene_position_filtered = gene_position_filtered.reindex(adata.var.index)
-    
     adata.var = adata.var.join(gene_position_filtered[['chromosome', 'start', 'end']])
-
     return adata
 
 def sort_genes_by_location(adata):
