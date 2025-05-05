@@ -21,7 +21,7 @@ The input data of scCNA can be raw count, scCNA will normalize the count
 Please download a GTF annotation file. Make sure the file includes gene-level entries in the feature column. We recommend using the GENCODE annotation. 
 ## find_cnas
 ## Referenced Code
-The python module of calculate reference and window mean expression is adapted from icbi-lab:
+The python module of calculate reference is adapted from icbi-lab:
 Author: Gregor Sturm
 Repository: https://github.com/icbi-lab/infercnvpy
 License: BSD 3-Clause
