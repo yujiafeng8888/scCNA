@@ -12,7 +12,7 @@ Clone the repository:
 ```bash
 git clone https://github.com/yujiafeng8888/scCNA
 cd scCNA
-pip install.
+pip install .
 ```
 ## usage
 
