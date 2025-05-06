@@ -52,6 +52,9 @@ def find_cnas(adata, min_cells=25, threshold=10, window_size=250,exclude_chromos
     tmp_adata = adata[:, ~var_mask]
     reference = _get_reference(adata, reference_key, reference_cat, reference)[:, ~var_mask]
     # print(reference.shape)
+    if isinstance(tmp_adata.X, np.ndarray):
+        tmp_adata.X = csr_matrix(tmp_adata.X)
+        print('converting to sparse matrix...')
     adata = tmp_adata.copy()
     adata = sort_genes_by_location(adata)
     genes = adata.var
