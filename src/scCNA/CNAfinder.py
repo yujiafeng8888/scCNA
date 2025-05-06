@@ -13,7 +13,6 @@ def find_cnas(adata, min_cells=25, threshold=10, window_size=250,exclude_chromos
             reference: np.ndarray | None = None,):
     """
     Detect CNAs using sliding window and annotate adata.obs['detect_CNA'].
-
     Parameters:
     adata
         annotated data matrix
@@ -177,4 +176,4 @@ def _get_reference(
 # print(adata.obs.columns)
 # print(adata.obs['cell_type'].value_counts())
 # adata.var.loc[:, ["ensg", "chromosome", "start", "end"]].head()
-# print(adata.obs['detect_CNA'].value_counts())
+# print(adata.X.shape)
