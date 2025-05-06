@@ -67,15 +67,15 @@ def find_cnas(adata, min_cells=25, threshold=10, window_size=250,exclude_chromos
     cna_list = []
     cell_cna_dict = {cell: [] for cell in cells}
     for i in range(0,len(reference_cat)):
-        cell_type = reference_cat[i] # 你要筛选的细胞类型
+        cell_type = reference_cat[i] # select celltype
         selected_cells = adata.obs_names[adata.obs['cell_type'] == cell_type]
         for chrom in genes['chromosome'].unique():
             idx = genes['chromosome'] == chrom
             gene_subset = genes[idx]
-            # 获取 selected_cells 对应的整数索引
+            # get selected_cells interger index
             selected_cell_indices = np.array([np.where(adata.obs_names == cell)[0][0] for cell in selected_cells])
 
-            # 选择与当前染色体相关的基因表达数据
+            # Select gene expression data related to the current chromosome.
             expr_subset = expr_norm[selected_cell_indices,:]
             expr_subset=expr_subset[:, idx.values]
 
@@ -112,7 +112,7 @@ def find_cnas(adata, min_cells=25, threshold=10, window_size=250,exclude_chromos
                     cna_list.append({'chromosome': chrom, 'start': window_start_pos, 'stop': window_end_pos, 'type': 'loss'})
                     for cell in loss_cells:
                         cell_cna_dict[cell].append(window_label_loss)
-    # 写入 adata.obs['detect_CNA']
+    # write adata.obs['detect_CNA']
     # print(cell_cna_dict)
     adata.obs['detect_CNA'] = adata.obs_names.map(lambda x: ';'.join(cell_cna_dict[x]) if cell_cna_dict[x] else 'none')
     return adata
