@@ -5,8 +5,8 @@ from typing import Sequence
 import logging
 from anndata import AnnData
 import os
-from scipy.sparse import csr_matrix
 os.environ["R_HOME"] = "/usr/lib/R"
+from scipy.sparse import csr_matrix
 
 def find_cnas(adata, min_cells=25, threshold=10, window_size=250,exclude_chromosomes: Sequence[str] | None = ("chrX", "chrY"),
             reference_key: str | None = None,
@@ -50,13 +50,12 @@ def find_cnas(adata, min_cells=25, threshold=10, window_size=250,exclude_chromos
     if exclude_chromosomes is not None:
         var_mask = var_mask | adata.var["chromosome"].isin(exclude_chromosomes)
 
-    tmp_adata = adata[:, ~var_mask]
-    reference = _get_reference(adata, reference_key, reference_cat, reference)[:, ~var_mask]
-    # print(reference.shape)
+    tmp_adata = adata[:, ~var_mask].copy()
     if isinstance(tmp_adata.X, np.ndarray):
         tmp_adata.X = csr_matrix(tmp_adata.X)
         print('converting to sparse matrix...')
     adata = tmp_adata.copy()
+    reference = _get_reference(adata, reference_key, reference_cat, reference)
     adata = sort_genes_by_location(adata)
     genes = adata.var
     cells = adata.obs_names
@@ -64,8 +63,6 @@ def find_cnas(adata, min_cells=25, threshold=10, window_size=250,exclude_chromos
     sc.pp.log1p(adata)
 
     expr_norm = adata.X
-    if not isinstance(expr_norm, np.ndarray):
-        expr_norm = expr_norm.toarray()
 
     cna_list = []
     cell_cna_dict = {cell: [] for cell in cells}
@@ -89,10 +86,11 @@ def find_cnas(adata, min_cells=25, threshold=10, window_size=250,exclude_chromos
                     continue
 
                 window_expr = np.mean(expr_subset[:, start:end], axis=1)
-                part_reference=reference[i, start:end].reshape(1, -1)
-                # print(part_reference.shape)
+                
+                part_reference=reference[i, start:end]
+                print(part_reference.shape)
                 reference_window_expr = np.mean(part_reference,axis=1)
-
+                
                 # Step 2: Compute fold-change relative to reference (this will identify relative expression levels)
                 fold_change = window_expr / reference_window_expr  # Calculate fold change against reference
 
@@ -166,8 +164,7 @@ def _get_reference(
 
     return reference
 
-
-# adata=sc.read_h5ad("../../PBMC_simulated_cnas_041025.h5ad")
+# adata=sc.read_h5ad("../../adata.sim.h5ad")
 # adata=find_cnas(adata,reference_key="cell_type",
 #                 reference_cat=[
 #                 'CD4 T cell',
