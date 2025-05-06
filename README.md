@@ -46,6 +46,8 @@ The parameters of `find_cnas` are listed as follows:
 
 -`window_size`: Number of genes per window.
 
+After running `find_cnas`, scCNA will add CNA annotation in adata.obs['detect_CNA'].
+
 #### Example
  ```python
 import scCNA as cna
