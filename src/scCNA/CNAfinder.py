@@ -88,7 +88,9 @@ def find_cnas(adata, min_cells=25, threshold=10, window_size=250,exclude_chromos
                     continue
 
                 window_expr = np.mean(expr_subset[:, start:end], axis=1)
-                reference_window_expr = np.mean(reference[i, idx.values], axis=1)
+                part_reference=reference[i, start:end].reshape(1, -1)
+                # print(part_reference.shape)
+                reference_window_expr = np.mean(part_reference,axis=1)
 
                 # Step 2: Compute fold-change relative to reference (this will identify relative expression levels)
                 fold_change = window_expr / reference_window_expr  # Calculate fold change against reference
