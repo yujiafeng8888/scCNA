@@ -5,6 +5,7 @@ from typing import Sequence
 import logging
 from anndata import AnnData
 import os
+from scipy.sparse import csr_matrix
 os.environ["R_HOME"] = "/usr/lib/R"
 
 def find_cnas(adata, min_cells=25, threshold=10, window_size=250,exclude_chromosomes: Sequence[str] | None = ("chrX", "chrY"),
