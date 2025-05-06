@@ -1,18 +1,17 @@
 import pandas as pd
 
-def extract_gene_position(gtf_file):
+def _extract_gene_position(gtf_file):
     gtf = pd.read_csv(gtf_file,sep="\t",comment="#", header=None,
                       names=["chromosome","source","feature",
                       "start","end","score","strand","frame","attribute"])
     gtf["gene_name"] = gtf["attribute"].str.extract(r'gene_name "([^"]+)"')
     gene_position = gtf[gtf["feature"] == 'gene']
     gene_position=gene_position[['gene_name','chromosome','start','end']]
-    print(gene_position.columns)
     return gene_position
 
 
 def annotate_gene_position(adata,gtf_filepath):
-    gene_position = extract_gene_position(gtf_filepath)
+    gene_position = _extract_gene_position(gtf_filepath)
     gene_position_filtered = gene_position.set_index('gene_name')
     gene_position_filtered = gene_position_filtered[~gene_position_filtered.index.duplicated(keep='first')]
     gene_position_filtered = gene_position_filtered.reindex(adata.var.index)
