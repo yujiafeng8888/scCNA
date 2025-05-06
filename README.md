@@ -40,11 +40,11 @@ The parameters of `find_cnas` are listed as follows:
 
 -`reference`: Directly supply an array of average normal gene expression. Overrides `reference_key` and `reference_cat`.
 
--`min_cells`: Minimum number of cells to define a CNA.
+-`min_cells`: Minimum number of cells to define a CNA, default 25.
 
--`threshold`: Fold change threshold.
+-`threshold`: Fold change threshold, default 10.
 
--`window_size`: Number of genes per window.
+-`window_size`: Number of genes per window，default 250.
 
 After running `find_cnas`, scCNA will add CNA annotation in adata.obs['detect_CNA'].
 
