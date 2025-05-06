@@ -21,6 +21,7 @@ The input data of scCNA can be raw count, scCNA will normalize the count
 
 For adata does not have gene position annotation, you can use function `annotate_gene_position`.
 The parameters of `find_cnas` are listed as follows:
+
 -`adata`: input adata
 
 -`gtf_filepath`: filepath of gtf annotation file
@@ -62,8 +63,11 @@ ad_def = cna.find_cnas(
  ```
 ## Referenced Code
 The python module of calculate reference is adapted from icbi-lab:
+
 Author: Gregor Sturm
+
 Repository: https://github.com/icbi-lab/infercnvpy
+
 License: BSD 3-Clause
 
 ## Contributing
