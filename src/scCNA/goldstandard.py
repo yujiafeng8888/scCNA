@@ -6,8 +6,7 @@ def simulate_cnas_windowed(
     window_size=100,
     cna_types=("gain", "loss", "homo_del"),
     frequencies=(0.2, 0.5, 0.9),
-    chroms=("1", "2", "3"),
-    cell_key="cell_type"
+    chroms=("1", "2", "3")
 ):
     """
     Simulate CNAs in expression matrix by modifying expression of genomic windows.
