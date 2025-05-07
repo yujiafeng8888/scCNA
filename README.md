@@ -20,6 +20,7 @@ The input data of scCNA can be raw count, scCNA will normalize the count
 ### Annotate_gene_position
 
 For adata does not have gene position annotation, you can use function `annotate_gene_position`.
+
 The parameters of `find_cnas` are listed as follows:
 
 -`adata`: input adata
@@ -30,6 +31,7 @@ For adata do not have Please download a GTF annotation file. Make sure the file 
 ### Find_cnas
 scCNA accepts both raw and normalized data, but requires cell annotations.
 To identify CNAs in scRNA-seq data, you can use the function `find_cnas`.
+
 The parameters of `find_cnas` are listed as follows:
 
 -`adata`:inpupt adata
@@ -63,6 +65,35 @@ ad_def = cna.find_cnas(
     window_size=100
 )
  ```
+
+### Simulate_cnas_windowed
+You can use this function simulate CNV in your adata.
+
+The parameters of `find_cnas` are listed as follows:
+
+-`adata`: input data
+
+-`window_size`: Number of genes per window，default 100.
+
+-`cna_types`: list of cna_types,you can choose in ("gain", "loss", "homo_del").
+
+-`frequencies`:list of CNV frequency in dataset, frequency must less than 1.
+
+-`chroms`: target CNV choromosomes.
+
+#### Example
+ ```python
+import scCNA as cna
+ad_def = cna.simulate_cnas_windowed(
+    adata.copy(),
+    window_size=100,
+    cna_types=("gain", "loss", "homo_del"),
+    frequencies=(0.2, 0.5, 0.9),
+    chroms=("1", "2", "3")
+)
+ ```
+
+
 ## Referenced Code
 The python module of calculate reference is adapted from icbi-lab:
 
